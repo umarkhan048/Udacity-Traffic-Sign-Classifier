@@ -1,5 +1,4 @@
 ## Project: Traffic Sign Recognition with Convolutional Neural Networks
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 Overview
 ---
@@ -34,4 +33,60 @@ I used the pandas library to calculate summary statistics of the traffic signs d
 
 The number of images per class in the dataset is as following:
 
-![Images_per_class](number_imgs_per_class.PNG)
+![Images_per_class](ReadMe_Images/number_imgs_per_class.PNG)
+
+#### 3. Design, Training and Testing of the Model Architecture
+
+For this project, the LeNet architecture is used. The LeNet architecture, as published in the original paper is shown below:
+
+![LeNet_Architecture](ReadMe_Images/LeNet_Architecture.png)
+
+The original paper can be found [here](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf)
+
+The LeNet architecture takes the input as images of 32 x 32 pixels. The input can be a 3 channel RGB image or 
+it can be a grayscale image. Running the model with grayscale did not yield any improvement in the performance of the network 
+therefore I decided to keep the images in the RGB form.
+
+An overview of my LeNet architecture is presented below:
+
+| Layer         	   	        |     Description	        					  | 
+|:----------------------------:|:----------------------------------------------:| 
+| Input Convolutional Layer    |Input = 32x32x3, Output = 28x28x6               |
+| Activation Layer             |                                                |
+| Pooling Layer                |Input = 28x28x6, Output = 14x14x6               |
+| Convolutional Layer          |Input = 14x14x6, Output = 10x10x16              |
+| Activation Layer             |                                                |
+| Pooling Layer                |Input = 10x10x16, Output = 5x5x16               |
+| Flattening Layer             |Input = 5x5x16, Output = 400                    |
+| Fully Connected Layer        |Input = 400, Output = 120                       |
+| Activation Layer             |                                                |
+| Fully Connected Layer        |Input = 120, Output = 84                        |
+| Activation Layer             |                                                |
+| Output Layer                 |Input = 84, Output = 43                         |
+
+To introduce non-linearity in the model, the Rectified Linear Unit (ReLU) Activation layer is used.
+For the pooling layer, average pooling was tested. With average pooling, the validation accuracy reduced from
+91% to 89%, therefore, max pooling is kept. A stride of 1x1 is used and the padding is kept to valid.
+
+To optimize the model, the learning rate is reduced from 0.001 to 0.0005. Experimenting with epochs and batch size showed that 
+the epoch size of 80 and the batch size of 64 images works the best. The validation accuracy reached to 93% after taking these measures.
+
+For further optimization, dropouts were  introduced. The validation accuracy increased to 95%. Further improvement is achieved by
+introducing L2 Regulation. With this, the validation accuracy of 96.5% is reached.
+
+The summary of the results of the final model are as follows:
+
+* validation set accuracy of 96.5%
+* test set accuracy of 95.1%
+
+#### Prediction on New Images
+
+The following five images are used to test the predictions of the trained CNN. These images are preprocessed as required by the model.
+
+| Image         	   	                     |     Label / Description	                      |
+|:-----------------------------------------:|:---------------------------------------------:|
+|![Test_Image1](ReadMe_Images/Bild_1.png)   |   14 / Stop                                   |
+|![Test_Image2](ReadMe_Images/Bild_2.png)   |   1  / Speed Limit (30 km/h)                  |
+|![Test_Image3](ReadMe_Images/Bild_3.png)   |   12 / Priority Road                          |
+|![Test_Image4](ReadMe_Images/Bild_4.png)   |   32 / End of all speed and passing limits    |
+|![Test_Image5](ReadMe_Images/Bild_5.png)   |   25 / Road work                              |
