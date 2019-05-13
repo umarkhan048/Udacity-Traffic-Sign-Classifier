@@ -52,16 +52,16 @@ An overview of my LeNet architecture is presented below:
 | Layer         	   	        |     Description	        					  | 
 |:----------------------------:|:----------------------------------------------:| 
 | Input Convolutional Layer    |Input = 32x32x3, Output = 28x28x6               |
-| Activation Layer             |                                                |
-| Pooling Layer                |Input = 28x28x6, Output = 14x14x6               |
+| Activation Layer             |ReLU                                            |
+| Max Pooling Layer            |Input = 28x28x6, Output = 14x14x6               |
 | Convolutional Layer          |Input = 14x14x6, Output = 10x10x16              |
-| Activation Layer             |                                                |
-| Pooling Layer                |Input = 10x10x16, Output = 5x5x16               |
+| Activation Layer             |ReLU                                            |
+| Max Pooling Layer            |Input = 10x10x16, Output = 5x5x16               |
 | Flattening Layer             |Input = 5x5x16, Output = 400                    |
 | Fully Connected Layer        |Input = 400, Output = 120                       |
-| Activation Layer             |                                                |
+| Activation Layer             |ReLU                                            |
 | Fully Connected Layer        |Input = 120, Output = 84                        |
-| Activation Layer             |                                                |
+| Activation Layer             |ReLU                                            |
 | Output Layer                 |Input = 84, Output = 43                         |
 
 To introduce non-linearity in the model, the Rectified Linear Unit (ReLU) Activation layer is used.
@@ -90,3 +90,11 @@ The following five images are used to test the predictions of the trained CNN. T
 |![Test_Image3](ReadMe_Images/Bild_3.png)   |   12 / Priority Road                          |
 |![Test_Image4](ReadMe_Images/Bild_4.png)   |   32 / End of all speed and passing limits    |
 |![Test_Image5](ReadMe_Images/Bild_5.png)   |   25 / Road work                              |
+
+The model performed very well on the 5 new images and predicted all the images correctly. This corresponds to an accuracy of 100%. 
+This may be due to the fact that 3 out of 5 image classes have a very high number of training images available (>1500). Additionally, for
+all 5 images, the shapes are very different (triangle, hexagon, diamond and round). The accuracy may reduce if relatively similar images are
+used e.g speed limit 20 km/h, speed limit 30 km/h and speed limit 50 km/h.
+
+The top five softmax probability values for the new images is coming out to be 1 whereas the probability values for the second, third, fourth and
+fifth positions are extremely low.
